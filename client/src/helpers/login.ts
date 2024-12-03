@@ -1,5 +1,6 @@
-import { User } from "../types/spotify/types";
+import { SpotifyUser } from "../types/spotify/types";
 import { storeDataInLocalStorage, storeSpotifyTokens } from "./localStorage";
+import { showSuccessNotif } from "./notifs";
 import { fetchUserData } from "./spotifyFetchers";
 
 interface SpotifyTokens {
@@ -29,7 +30,7 @@ export function spotifyLoginOccurred(): boolean {
 }
 
 export async function handleSpotifyLogin(
-  setUser: React.Dispatch<React.SetStateAction<User | null>>
+  setSpfyUser: React.Dispatch<React.SetStateAction<SpotifyUser | null>>
 ): Promise<void> {
   const { accessToken, refreshToken, expiresIn } = getSpotifyTokens();
 
@@ -38,10 +39,11 @@ export async function handleSpotifyLogin(
     window.location.hash = "";
 
     // Fetch and store user's data
-    const user: User | null = await fetchUserData();
+    const user: SpotifyUser | null = await fetchUserData();
     if (user) {
-      storeDataInLocalStorage("spotify_user", user);
-      setUser(user);
+      storeDataInLocalStorage("spfy_user", user);
+      setSpfyUser(user);
+      showSuccessNotif("Success", "Connected with your Spotify account");
     }
   }
 }

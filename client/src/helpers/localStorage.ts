@@ -4,9 +4,9 @@ export function storeSpotifyTokens(
   expiresIn: string
 ): void {
   const expiryTime = Date.now() + Number(expiresIn) * 1000;
-  localStorage.setItem("access_token", access);
-  localStorage.setItem("refresh_token", refresh);
-  localStorage.setItem("token_expiry", expiryTime.toString());
+  localStorage.setItem("spfy_access_token", access);
+  localStorage.setItem("spfy_refresh_token", refresh);
+  localStorage.setItem("spfy_token_expiry", expiryTime.toString());
 }
 
 export function getItemFromLocalStorage(item: string): string | null {
@@ -20,15 +20,4 @@ export function getItemFromLocalStorage(item: string): string | null {
 
 export function storeDataInLocalStorage(key: string, data: any): void {
   localStorage.setItem(key, JSON.stringify(data));
-}
-
-export function storeTokens(
-  access: string,
-  refresh: string,
-  expiresIn: string
-): void {
-  const expiryTime = Date.now() + Number(expiresIn) * 1000;
-  localStorage.setItem("access_token", access);
-  localStorage.setItem("refresh_token", refresh);
-  localStorage.setItem("token_expiry", expiryTime.toString());
 }

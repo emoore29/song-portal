@@ -1,4 +1,4 @@
-export interface User {
+export interface SpotifyUser {
   country: string;
   display_name: string;
   email: string;

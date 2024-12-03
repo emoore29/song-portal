@@ -1,10 +1,11 @@
-import { storeTokens } from "./localStorage";
+import { storeSpotifyTokens } from "./localStorage";
 import { showErrorNotif } from "./notifs";
 
 // Returns true if token is invalid
 export function checkTokenValidity(): boolean {
-  const storedAccessToken: string | null = localStorage.getItem("access_token");
-  const storedExpiry: string | null = localStorage.getItem("token_expiry");
+  const storedAccessToken: string | null =
+    localStorage.getItem("spfy_access_token");
+  const storedExpiry: string | null = localStorage.getItem("spfy_token_expiry");
   if (
     !storedAccessToken ||
     storedAccessToken === "undefined" ||
@@ -12,7 +13,7 @@ export function checkTokenValidity(): boolean {
     storedExpiry === "undefined" ||
     storedExpiry === "NaN"
   ) {
-    showErrorNotif("Error", "Something went wrong. Please log in again.");
+    console.warn("No tokens found, please log in.");
   }
 
   const now = Date.now();
@@ -34,7 +35,7 @@ export async function handleTokens(): Promise<void> {
         const tokens: string[] | null = await getNewTokens();
         if (tokens) {
           const [accessToken, newRefreshToken, expiresIn] = tokens;
-          storeTokens(accessToken, newRefreshToken, expiresIn);
+          storeSpotifyTokens(accessToken, newRefreshToken, expiresIn);
         }
       }
     })();

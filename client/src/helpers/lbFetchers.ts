@@ -1,4 +1,3 @@
-import { TokenResponse } from "../types/lb/types";
 import { showErrorNotif } from "./notifs";
 
 export async function getListens(token: string, username: string) {

@@ -1,10 +1,11 @@
-import { User } from "../types/spotify/types";
+import { SpotifyUser } from "../types/spotify/types";
 import { getItemFromLocalStorage } from "./localStorage";
 import { showErrorNotif } from "./notifs";
 
 // Fetches user data, returns User or null on failure
-export async function fetchUserData(): Promise<User | null> {
-  const accessToken: string | null = getItemFromLocalStorage("access_token");
+export async function fetchUserData(): Promise<SpotifyUser | null> {
+  const accessToken: string | null =
+    getItemFromLocalStorage("spfy_access_token");
   if (!accessToken) return null;
   try {
     const res = await fetch("https://api.spotify.com/v1/me", {
