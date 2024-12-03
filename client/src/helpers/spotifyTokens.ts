@@ -12,11 +12,7 @@ export function checkTokenValidity(): boolean {
     storedExpiry === "undefined" ||
     storedExpiry === "NaN"
   ) {
-    // Either user has not logged in, or there is an error
-    showErrorNotif(
-      "Error",
-      "Couldn't find stored access token or expiry. Please log in again."
-    );
+    showErrorNotif("Error", "Something went wrong. Please log in again.");
   }
 
   const now = Date.now();
@@ -70,6 +66,10 @@ export async function getNewTokens(): Promise<string[] | null> {
 
     const data = await res.json();
 
+    if (!res.ok) {
+      throw new Error(`HTTP error. status ${res.status}`);
+    }
+
     const {
       access_token: accessToken,
       refresh_token: newRefreshToken,
@@ -78,7 +78,8 @@ export async function getNewTokens(): Promise<string[] | null> {
 
     return [accessToken, newRefreshToken, expiresIn];
   } catch (error) {
-    console.error("Something went wrong continuing login:", error);
+    showErrorNotif("Network error", "See console for details.");
+    console.error("Login error:", error);
     return null;
   }
 }
