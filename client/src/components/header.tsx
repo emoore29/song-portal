@@ -1,8 +1,8 @@
-import { Menu } from "@mantine/core";
-import { SpotifyUser } from "../types/spotify/types";
+import { Menu, Text } from "@mantine/core";
 import { modals } from "@mantine/modals";
-import { Text } from "@mantine/core";
 import { showSuccessNotif } from "../helpers/notifs";
+import { SpotifyUser } from "../types/spotify/types";
+import ListenBrainzToken from "./listenBrainzToken";
 
 interface HeaderProps {
   lbUser: string | null;
@@ -35,6 +35,13 @@ export default function Header({
       },
     });
 
+  function openConnectLb() {
+    modals.open({
+      title: "Connect with ListenBrainz",
+      children: <ListenBrainzToken setLbUser={setLbUser} modal={true} />,
+    });
+  }
+
   const clearLb = () => {
     localStorage.removeItem("lb_user");
     localStorage.removeItem("lb_token");
@@ -65,14 +72,27 @@ export default function Header({
           </button>
         </Menu.Target>
         <Menu.Dropdown>
-          {lbUser && (
-            <Menu.Item onClick={() => openConfirmDisconnect("lb")}>
+          {lbUser ? (
+            <Menu.Item color="red" onClick={() => openConfirmDisconnect("lb")}>
               Disconnect ListenBrainz
             </Menu.Item>
+          ) : (
+            <Menu.Item onClick={() => openConnectLb()}>
+              Connect with ListenBrainz
+            </Menu.Item>
           )}
-          {spfyUser && (
-            <Menu.Item onClick={() => openConfirmDisconnect("sp")}>
+          {spfyUser ? (
+            <Menu.Item color="red" onClick={() => openConfirmDisconnect("sp")}>
               Disconnect Spotify
+            </Menu.Item>
+          ) : (
+            <Menu.Item
+              onClick={() => {
+                sessionStorage.setItem("connectingFromMain", "true");
+                window.location.href = "http://localhost:3000/spotify-login";
+              }}
+            >
+              Connect with Spotify
             </Menu.Item>
           )}
         </Menu.Dropdown>

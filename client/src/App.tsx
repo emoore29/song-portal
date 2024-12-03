@@ -52,8 +52,9 @@ function App() {
     async function initialize() {
       if (spotifyLoginOccurred()) {
         handleSpotifyLogin(setSpfyUser);
-        sessionStorage.setItem("justConnected", "true");
-        setJustConnected(true);
+        !sessionStorage.getItem("connectingFromMain") &&
+          sessionStorage.setItem("justConnected", "true");
+        !sessionStorage.getItem("connectingFromMain") && setJustConnected(true);
       } else {
         const spUser: string | null = getItemFromLocalStorage("spfy_user");
         if (spUser) {
