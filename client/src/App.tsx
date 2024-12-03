@@ -84,7 +84,13 @@ function App() {
           spfyUser={spfyUser}
         />
       ) : (
-        <Main lbUser={lbUser} spfyUser={spfyUser} />
+        <Main
+          lbUser={lbUser}
+          spfyUser={spfyUser}
+          setLbUser={setLbUser}
+          setSpfyUser={setSpfyUser}
+          setGoToMain={setGoToMain}
+        />
       )}
     </>
   );
