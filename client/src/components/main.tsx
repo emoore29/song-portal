@@ -1,8 +1,15 @@
-export default function Main() {
+import { SpotifyUser } from "../types/spotify/types";
+import Header from "./header";
+
+interface MainProps {
+  lbUser: string | null;
+  spfyUser: SpotifyUser | null;
+}
+
+export default function Main({ lbUser, spfyUser }: MainProps) {
   return (
     <>
-      <h1>song portal</h1>
-      <p>main content</p>
+      <Header lbUser={lbUser} spfyUser={spfyUser} />
     </>
   );
 }

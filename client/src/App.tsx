@@ -12,23 +12,27 @@ function App() {
   const [goToMain, setGoToMain] = useState<boolean>(false);
   const [justConnected, setJustConnected] = useState<boolean>(false);
 
+  // Determines whether to show main or connect lobby
   useEffect(() => {
+    // If one or more accounts is connected and they haven't justConnected, show main
     if ((lbUser || spfyUser) && !justConnected) {
       setGoToMain(true);
     }
   }, [lbUser, spfyUser, justConnected]);
 
+  // Checks if user has just connected and updates state to reflect that
   useEffect(() => {
     const jc = sessionStorage.getItem("justConnected");
     if (jc) {
       setJustConnected(true);
-      // sessionStorage.removeItem('justConnected');
     }
   }, []);
 
+  // Handles user state on initial page visit
   useEffect(() => {
     const storedLbUser: string | null = getItemFromLocalStorage("lb_user");
 
+    // Check for stored lb user in local and session storage
     if (storedLbUser) {
       setLbUser(storedLbUser);
     } else {
@@ -38,6 +42,8 @@ function App() {
         sessionStorage.getItem("lb_token");
       if (sessionStoredLbUser && sessionStoredLbToken) {
         setLbUser(sessionStoredLbUser);
+
+        // Move lb user data to local storage for persistence
         localStorage.setItem("lb_user", sessionStoredLbUser);
         localStorage.setItem("lb_token", sessionStoredLbToken);
       }
@@ -78,7 +84,7 @@ function App() {
           spfyUser={spfyUser}
         />
       ) : (
-        <Main />
+        <Main lbUser={lbUser} spfyUser={spfyUser} />
       )}
     </>
   );
