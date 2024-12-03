@@ -53,7 +53,7 @@ app.get("/callback", async function (req, res) {
   // Check that the state given by Spotify is the same as the storedState from the original authorization request
   if (state === null || state !== storedState) {
     res.redirect(
-      "/#" +
+      "http://localhost:5173/#" +
         new URLSearchParams({
           error: "state_mismatch",
         })

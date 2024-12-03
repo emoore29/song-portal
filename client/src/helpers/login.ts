@@ -28,7 +28,9 @@ export function spotifyLoginOccurred(): boolean {
   return accessToken !== null && refreshToken !== null && expiresIn !== null;
 }
 
-export async function handleSpotifyLogin(): Promise<void> {
+export async function handleSpotifyLogin(
+  setUser: React.Dispatch<React.SetStateAction<User | null>>
+): Promise<void> {
   const { accessToken, refreshToken, expiresIn } = getSpotifyTokens();
 
   if (accessToken && refreshToken && expiresIn) {
@@ -38,8 +40,8 @@ export async function handleSpotifyLogin(): Promise<void> {
     // Fetch and store user's data
     const user: User | null = await fetchUserData();
     if (user) {
-      storeDataInLocalStorage("user_data", user);
-      // setUser(user);
+      storeDataInLocalStorage("spotify_user", user);
+      setUser(user);
     }
   }
 }

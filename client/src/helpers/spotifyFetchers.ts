@@ -23,7 +23,8 @@ export async function fetchUserData(): Promise<User | null> {
 
     return data;
   } catch (error) {
-    showErrorNotif("Error", "There was an error fetching your user data.");
+    showErrorNotif("Network error", "See console for details.");
+    console.error("Fetch user data error:", error);
     return null;
   }
 }
