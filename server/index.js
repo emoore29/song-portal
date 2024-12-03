@@ -62,9 +62,8 @@ app.get("/callback", async function (req, res) {
     res.clearCookie(stateKey); // Remove cookie once it has served its purpose
 
     // Spotify example code uses request package, which is deprecated
-    // Following code uses axios in a try/catch block to send the post request instead
-    // json: true is not needed because axios automatically parses JSOn responses
-
+    // This code uses axios in a try/catch block to send the post request instead
+    // json: true is not needed because axios automatically parses JSON responses
     try {
       const authResponse = await axios.post(
         "https://accounts.spotify.com/api/token",

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ListenBrainzToken from "./listenBrainzToken";
 
 export default function Welcome() {
   const [connect, setConnect] = useState<boolean>(false);
@@ -14,9 +15,13 @@ export default function Welcome() {
 }
 
 function Connect() {
+  const [inputToken, setInputToken] = useState<boolean>(false);
   return (
     <>
-      <a href="http://localhost:3000/login">Connect with ListenBrainz</a>
+      <button onClick={() => setInputToken(true)}>
+        Connect with ListenBrainz
+      </button>
+      {inputToken && <ListenBrainzToken />}
 
       <a href="http://localhost:3000/spotify-login">Connect with Spotify</a>
     </>

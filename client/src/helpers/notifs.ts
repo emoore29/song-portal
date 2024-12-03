@@ -7,3 +7,11 @@ export function showErrorNotif(title: string, message: string) {
     message: message,
   });
 }
+
+export function showSuccessNotif(title: string, message: string) {
+  notifications.show({
+    color: "green",
+    title: title,
+    message: message,
+  });
+}
