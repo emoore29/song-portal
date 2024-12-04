@@ -1,13 +1,16 @@
 import { useState } from "react";
+import { deleteListens, fetchToTarget } from "../helpers/lbFetchers";
 import { showErrorNotif } from "../helpers/notifs";
 import { Listen } from "../types/lb/types";
-import { deleteListens, fetchHistory } from "../helpers/lbFetchers";
+
+// Created to remove unwanted "listens" that were recorded by LB android app unintentionally linked to Twitch
+// TODO: Allow input of track name and artist name user wants to batch delete
 
 export default function BatchDelete() {
   const [dataToDelete, setDataToDelete] = useState<Listen[] | null>(null);
 
-  async function getListens() {
-    const listens: Listen[] | null = await fetchHistory(0);
+  async function getTargetedListens() {
+    const listens: Listen[] | null = await fetchToTarget(0);
 
     if (listens) {
       console.log(listens);
@@ -55,7 +58,7 @@ export default function BatchDelete() {
 
   return (
     <>
-      <button onClick={getListens}>Fetch LB listen history</button>
+      <button onClick={getTargetedListens}>Fetch LB listen history</button>
       <button onClick={() => batchDelete("DanielFenner", "Overwatch 2")}>
         Delete Daniel Fenner "listens"
       </button>
