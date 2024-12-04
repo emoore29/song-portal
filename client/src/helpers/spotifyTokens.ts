@@ -46,7 +46,8 @@ export async function handleTokens(): Promise<void> {
 // Fetches new tokens from backend /refresh_token API endpoint
 export async function getNewTokens(): Promise<string[] | null> {
   // Sends request to backend for new access token
-  const refreshToken: string | null = localStorage.getItem("refresh_token");
+  const refreshToken: string | null =
+    localStorage.getItem("spfy_refresh_token");
   if (!refreshToken) {
     showErrorNotif("", "Your session has expired. Please log in again.");
     return null;

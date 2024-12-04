@@ -7,11 +7,9 @@ A web app that allows users to sort their listening history based on time.
 ### Core features
 
 - [x] Connect with ListenBrainz and/or Spotify
-- [ ] Fetch extended listen hx from ListenBrainz
-- [ ] Upload extended listen hx from Spotify
-- [ ] Sort LB extended listen hxs by year and create playlists for each year
-- [ ] Sort Spotify extended listen hxs by year and create playlists for each year
-- [ ] View, edit, and save playlists to LB and/or Spotify
+- [ ] Fetch extended listen hx from ListenBrainz (+ upload Spotify)
+- [ ] Sort LB extended listen hxs by year and create playlists for each year (+Spotify)
+- [ ] View, edit, and save playlists to LB (+Spotify)
 
 ### Additions
 
