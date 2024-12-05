@@ -1,5 +1,5 @@
-import { DeleteListen, HistoryPayload, Listen } from "../types/lb/types";
-import { showErrorNotif } from "./notifs";
+import { DeleteListen, HistoryPayload, Listen } from "../../../types/lb/types";
+import { showErrorNotif } from "../../notifs";
 
 let username: string | null = null;
 let token: string | null = null;

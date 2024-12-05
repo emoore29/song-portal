@@ -1,6 +1,6 @@
 import { TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { checkTokenValid } from "../helpers/lbFetchers";
+import { checkTokenValid } from "../helpers/fetchers/lb/lbFetchers";
 import { showErrorNotif, showSuccessNotif } from "../helpers/notifs";
 import { modals } from "@mantine/modals";
 

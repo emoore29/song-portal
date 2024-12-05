@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { deleteListens, fetchToTarget } from "../helpers/lbFetchers";
+import {
+  deleteListens,
+  fetchToTarget,
+} from "../helpers/fetchers/lb/lbFetchers";
 import { showErrorNotif } from "../helpers/notifs";
 import { Listen } from "../types/lb/types";
 

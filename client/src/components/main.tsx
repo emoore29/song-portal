@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   fetchExtendedHistory,
   fetchListenCount,
   fetchListens,
-} from "../helpers/lbFetchers";
+} from "../helpers/fetchers/lb/lbFetchers";
 import { HistoryPayload, Listen } from "../types/lb/types";
 import { SpotifyUser } from "../types/spotify/types";
 import Header from "./header";

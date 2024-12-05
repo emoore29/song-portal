@@ -1,6 +1,6 @@
-import { SpotifyUser } from "../types/spotify/types";
-import { getItemFromLocalStorage } from "./localStorage";
-import { showErrorNotif } from "./notifs";
+import { SpotifyUser } from "../../../types/spotify/types";
+import { getItemFromLocalStorage } from "../../localStorage";
+import { showErrorNotif } from "../../notifs";
 
 // Fetches user data, returns User or null on failure
 export async function fetchUserData(): Promise<SpotifyUser | null> {

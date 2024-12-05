@@ -1,7 +1,7 @@
 import { SpotifyUser } from "../types/spotify/types";
 import { storeDataInLocalStorage, storeSpotifyTokens } from "./localStorage";
 import { showSuccessNotif } from "./notifs";
-import { fetchUserData } from "./spotifyFetchers";
+import { fetchUserData } from "./fetchers/spotify/spotifyFetchers";
 
 interface SpotifyTokens {
   accessToken: string | null;
