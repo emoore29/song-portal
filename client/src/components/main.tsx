@@ -52,6 +52,21 @@ export default function Main({
     setExtendedHistory(listens);
   }
 
+  async function serverTest() {
+    try {
+      const res = await fetch("http://localhost:3000/server-test");
+
+      if (!res.ok) {
+        throw new Error(`HTTP error`);
+      }
+
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Error with server test");
+    }
+  }
+
   return (
     <>
       <Header
@@ -61,9 +76,10 @@ export default function Main({
         setSpfyUser={setSpfyUser}
         setGoToMain={setGoToMain}
       />
-      <button onClick={getExtendedListenHistory}>
+      {/* <button onClick={getExtendedListenHistory}>
         Fetch extended LB listen history
-      </button>
+      </button> */}
+      <button onClick={serverTest}>Server test</button>
     </>
   );
 }

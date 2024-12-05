@@ -176,6 +176,13 @@ app.get("/refresh_token", async function (req, res) {
   }
 });
 
+app.get("/server-test", function (req, res) {
+  console.log("req sent to server-test");
+  res.send({
+    test: "test",
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
