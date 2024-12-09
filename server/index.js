@@ -170,7 +170,7 @@ app.get("/refresh_token", async function (req, res) {
     console.log(`${currentTime}: Sent new access token to client.`);
   } catch (error) {
     console.error(
-      "Something went wrong fetching new access token from Spotify.",
+      "Something went wrong fetching a new access token from Spotify.",
       error
     );
   }
