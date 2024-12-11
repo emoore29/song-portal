@@ -8,12 +8,37 @@
 # database or a cache. For examples, see the Awesome Compose repository:
 # https://github.com/docker/awesome-compose
 services:
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: songportal-db
+    volumes:
+      - type: bind
+        source: ./database/init.sql
+        target: /docker-entrypoint-initdb.d/init.sql
+      - type: volume
+        source: spdata
+        target: /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
   server:
     build:
       context: ./server
     ports:
       - "3000:3000"
-
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://postgres:mysecretpassword@db:5432/songportal-db
     develop:
       watch:
         - action: sync
@@ -23,24 +48,14 @@ services:
             - node_modules/
         - action: rebuild
           path: package.json
-    # volumes:
-    #   - type: bind
-    #     source: ./server
-    #     target: /usr/src/app
-    #   - type: volume
-    #     target: /usr/src/app/node_modules
   client:
     build:
       context: ./client
     ports:
       - "5173:5173"
-    # volumes:
-    #   - type: bind
-    #     source: ./client
-    #     target: /usr/src/app
-    #   - type: volume
-    #     target: /usr/src/app/node_modules
-
+    depends_on:
+      db:
+        condition: service_healthy
     develop:
       watch:
         - action: sync
@@ -50,6 +65,9 @@ services:
             - node_modules/
         - action: rebuild
           path: package.json
+
+volumes:
+  spdata:
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
 # start the database before your application. The `db-data` volume persists the
@@ -83,3 +101,10 @@ services:
 #   db-password:
 #     file: db/password.txt
 
+# For adding volumes to front/backend
+# volumes:
+#   - type: bind
+#     source: ./client
+#     target: /usr/src/app
+#   - type: volume
+#     target: /usr/src/app/node_modules
